@@ -4,7 +4,7 @@
   "description": "backend,flipkartclone",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/server.js"
+    "start": "node ./src/server.js"
   },
   "author": "Ankit chotaliya",
   "license": "ISC",
