@@ -4,7 +4,7 @@ const mongoose =require("mongoose")
 const path=require("path")
 const cors= require("cors")
 //constants
-const port=process.env.port||7000
+const PORT=process.env.PORT||7000
 const MONGO_DB_USER="root"
 const MONGO_DB_PASSWORD="admin"
 const MONGO_DB_DB="ecommerce"
@@ -67,6 +67,6 @@ app.use('/api',addressRoutes)
 //     })
 // })
 
-app.listen(port,()=>{
-    console.log(`running on ${port}`);
+app.listen(PORT,()=>{
+    console.log(`running on ${PORT}`);
 })
