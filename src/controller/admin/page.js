@@ -1,18 +1,18 @@
 const Page = require("../../models/page")
-// const API = "http://localhost:7000"
+const API ="https://mernbackendankit.herokuapp.com"|| "http://localhost:7000"
 
 exports.createPage = (req, res) => {
 
     const { banners, products } = req.files;
     if (banners && banners.length > 0) {
         req.body.banners = banners.map((banner, index) => ({
-            img: `/public/${banner.filename}`,
+            img: `${API}/public/${banner.filename}`,
             navigateTo: `/bannerClicked?categoryid=${req.body.category}&type=${req.body.type}`
         }))
     }
     if (products && products.length > 0) {
         req.body.products = products.map((product, index) => ({
-            img: `/public/${product.filename}`,
+            img: `${API}/public/${product.filename}`,
             navigateTo: `/productClicked?categoryid=${req.body.category}&type=${req.body.type}`
         }))
     }
