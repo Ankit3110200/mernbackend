@@ -40,7 +40,7 @@ exports.createproduct=(req,res)=>{
   }
 exports.getproductbyslug=(req,res)=>{
     const {slug}=req.params;
-    Category.findOne({slug:slug}).select("_id")
+    Category.findOne({slug:slug}).select("_id type")
     .exec((error,category)=>{
         if(error){
             res.status(400).json({error})
@@ -52,6 +52,7 @@ exports.getproductbyslug=(req,res)=>{
                     res.status(400).json({error})
                 }
 
+                if (category.type) {
                 if(products.length>0){
                 res.status(200).json({
                     products,
@@ -63,6 +64,10 @@ exports.getproductbyslug=(req,res)=>{
 }
                 })
                 }
+            }else{
+                res.status(200).json({ products })
+            }
+
             })
         }
     })
@@ -107,3 +112,27 @@ exports.getproductdetailsbyid=(req,res)=>{
         return res.status(400).json({error:"params required"})
     }
 }
+
+
+exports.deleteProductById = (req, res) => {
+    const { productId } = req.body.payload;
+    if (productId) {
+      Product.deleteOne({ _id: productId }).exec((error, result) => {
+        if (error) return res.status(400).json({ error });
+        if (result) {
+          res.status(202).json({ result });
+        }
+      });
+    } else {
+      res.status(400).json({ error: "Params required" });
+    }
+  };
+  
+  exports.getProducts = async (req, res) => {
+    const products = await Product.find({})
+      .select("_id name price quantity slug description productpicture category")
+      .populate({ path: "category", select: "_id name" })
+      .exec();
+  
+    res.status(200).json({ products });
+  };

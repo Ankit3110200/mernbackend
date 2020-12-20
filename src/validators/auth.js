@@ -17,6 +17,7 @@ exports.validatereq=[
     
     ];
 
+    
     exports.validatereqsignin=[
     
         check("email")

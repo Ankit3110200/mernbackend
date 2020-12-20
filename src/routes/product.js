@@ -1,5 +1,5 @@
 const express=require("express")
-const { createproduct, getproductbyslug, getproductdetailsbyid, getproductsofpage } = require("../controller/product")
+const { createproduct, getproductbyslug, getproductdetailsbyid, getproductsofpage,deleteProductById,getProducts } = require("../controller/product")
 //const { addcategory, getcat } = require("../controller/category")
 const { requiresignin, adminMidddleware } = require("../middleware")
 const router=express.Router()
@@ -24,5 +24,16 @@ router.post('/product/create',requiresignin,adminMidddleware,upload.array('produ
 router.get('/products/:slug',getproductbyslug)
 router.get('/product/:productid',getproductdetailsbyid)
 router.get('/productsofpage/:slug',getproductsofpage)
+
+router.delete(
+  "/product/deleteProductById",
+  requiresignin,adminMidddleware,
+  deleteProductById
+);
+router.post(
+  "/product/getProducts",
+  requiresignin,adminMidddleware,
+  getProducts
+);
 
 module.exports=router

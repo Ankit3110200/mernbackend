@@ -53,11 +53,12 @@ exports.signup=(req,res)=>{
 
 exports.signin=(req,res)=>{
     User.findOne({email:req.body.email})
-    .exec((error,user)=>{
+    .exec(async(error,user)=>{
         if(error) return res.status(400).json({ error })
         if(user){
-            if(user.authenticate(req.body.password)&&user.role==="user"){
-                const token = jwt.sign({_id: user._id,role:user.role},jwt_secret,{ expiresIn:'6h'});
+            const ispassword=await user.authenticate(req.body.password)
+            if(ispassword&&user.role==="user"){
+                const token = jwt.sign({_id: user._id,role:user.role},jwt_secret,{ expiresIn:'60d'});
                 const {_id,firstname,lastname,email,role,fullname}=user;
                 res.status(200).json({
                     token,

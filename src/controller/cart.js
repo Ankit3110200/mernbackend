@@ -5,8 +5,8 @@ const user = require("../models/user")
 function runUpdate(condition,updateData){
     return new Promise((resolve,reject)=>{
         Cart.findOneAndUpdate(condition,updateData,{upsert:true})
-        .then(resolve=>resolve())
-        .catch(reject=>reject(err))        
+        .then((result) => resolve())
+        .catch((err) => reject(err))        
     })
 }
 exports.additemtocart=(req,res)=>{
@@ -83,3 +83,26 @@ exports.getcartitems=(req,res)=>{
         }
     })
 }
+
+
+
+exports.removeCartItems = (req, res) => {
+    const { productId } = req.body.payload;
+    if (productId) {
+      Cart.updateOne(
+        { user: req.user._id },
+        {
+          $pull: {
+            cartitems: {
+              product: productId,
+            },
+          },
+        }
+      ).exec((error, result) => {
+        if (error) return res.status(400).json({ error });
+        if (result) {
+          res.status(202).json({ result });
+        }
+      });
+    }
+  };

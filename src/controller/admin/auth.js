@@ -46,10 +46,11 @@ exports.signup=(req,res)=>{
 
 exports.signin=(req,res)=>{
     User.findOne({email:req.body.email})
-    .exec((error,user)=>{
+    .exec(async(error,user)=>{
         if(error) return res.status(400).json({ error })
         if(user){
-            if(user.authenticate(req.body.password)&&user.role==="admin"){
+            const ispassword=await user.authenticate(req.body.password)
+            if(ispassword&&user.role==="admin"){
                 const token = jwt.sign({_id: user._id, role:user.role},jwt_secret,{ expiresIn:'2d'});
                 const {_id,firstname,lastname,email,role,fullname}=user;
                 res.cookie('token',token,{expiresIn:'2d'})
@@ -76,7 +77,7 @@ exports.signin=(req,res)=>{
 exports.signout=(req,res)=>{
     res.clearCookie('token')
     res.status(200).json({
-        message:"SgnOut Successfully"
+        message:"SignOut Successfully"
     })
 }
 

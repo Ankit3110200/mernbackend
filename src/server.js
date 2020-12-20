@@ -20,6 +20,7 @@ const intialDataRoutes=require("./routes/admin/intialData")
 const pageRoutes=require("./routes/admin/page")
 const addressRoutes=require("./routes/address")
 const orderRoutes=require("./routes/order")
+const adminorderroutes=require('./routes/admin/order.admin')
 
 //or we can you use bodyparser() from body-parser library
 
@@ -55,6 +56,8 @@ app.use('/api',intialDataRoutes)
 app.use('/api',pageRoutes)
 
 app.use('/api',addressRoutes)
+
+app.use('/api',adminorderroutes)
 // app.get('/',(req,res,next)=>{
 //     res.status(200).json({
 //         message : "hello from the server"

@@ -32,7 +32,7 @@ exports.addcategory =(req,res)=>{
         slug:`${slugify(req.body.name)}-${shortid.generate()}`
     }
     if(req.file){
-        categoryobj.categoryimage ="http://localhost:7000/public/"+req.file.filename;
+        categoryobj.categoryimage ="/public/"+req.file.filename;
     }
     if(req.body.parentid){
         categoryobj.parentid=req.body.parentid;
