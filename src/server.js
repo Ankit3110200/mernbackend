@@ -21,7 +21,7 @@ const pageRoutes=require("./routes/admin/page")
 const addressRoutes=require("./routes/address")
 const orderRoutes=require("./routes/order")
 const adminorderroutes=require('./routes/admin/order.admin')
-
+const homeroutes=require('./routes/home')
 //or we can you use bodyparser() from body-parser library
 
 // mongodb+srv://root:<password>@cluster0.cnyo8.mongodb.net/<dbname>?retryWrites=true&w=majority
@@ -58,6 +58,9 @@ app.use('/api',pageRoutes)
 app.use('/api',addressRoutes)
 
 app.use('/api',adminorderroutes)
+
+
+app.use('/api',homeroutes)
 // app.get('/',(req,res,next)=>{
 //     res.status(200).json({
 //         message : "hello from the server"

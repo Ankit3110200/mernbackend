@@ -136,3 +136,17 @@ exports.deleteProductById = (req, res) => {
   
     res.status(200).json({ products });
   };
+
+  exports.getallproduct=(req,res)=>{
+    Product.find({}).exec((error,products)=>{
+        if(products){
+            
+                    return res.status(200).json({products})
+                
+            }
+        else{
+            return res.status(500).json({error})
+        }
+    })
+    
+}

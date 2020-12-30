@@ -1,5 +1,5 @@
 const express=require("express")
-const { createproduct, getproductbyslug, getproductdetailsbyid, getproductsofpage,deleteProductById,getProducts } = require("../controller/product")
+const { createproduct, getproductbyslug, getproductdetailsbyid, getproductsofpage,deleteProductById,getProducts,getallproduct } = require("../controller/product")
 //const { addcategory, getcat } = require("../controller/category")
 const { requiresignin, adminMidddleware } = require("../middleware")
 const router=express.Router()
@@ -21,10 +21,10 @@ const storage = multer.diskStorage({
 const upload=multer({storage})
 
 router.post('/product/create',requiresignin,adminMidddleware,upload.array('productpicture'),createproduct)
+router.get('/product/getallproduct',getallproduct)
 router.get('/products/:slug',getproductbyslug)
 router.get('/product/:productid',getproductdetailsbyid)
 router.get('/productsofpage/:slug',getproductsofpage)
-
 router.delete(
   "/product/deleteProductById",
   requiresignin,adminMidddleware,
